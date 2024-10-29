@@ -17,12 +17,13 @@
             android:textStyle="bold"
             android:gravity="center"
             android:layout_marginBottom="20dp"
-            android:textColor="@color/black"
+            android:textColor="@color/blue"
             android:text="GeoQuiz"
             android:shadowColor="#80000000"
             android:shadowDx="2"
             android:shadowDy="2"
-            android:shadowRadius="4"/>
+            android:shadowRadius="4"
+            android:background="@drawable/textview_background" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -48,7 +49,7 @@
                     android:gravity="center"
                     android:textSize="26sp"
                     android:textStyle="bold"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/black"
                     android:layout_marginBottom="12dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
