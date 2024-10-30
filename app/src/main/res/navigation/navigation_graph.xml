@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_graph">
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/homeScreen">
 
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.example.quiz.screens.home.HomeScreen"
+        android:label="HomeScreen" >
+        <action
+            android:id="@+id/action_homeScreen_to_gameScreen"
+            app:destination="@id/gameScreen" />
+        <action
+            android:id="@+id/action_homeScreen_to_scoreBoardFragment2"
+            app:destination="@id/scoreBoardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameScreen"
+        android:name="com.example.quiz.screens.game.GameScreen"
+        android:label="GameScreen" >
+        <action
+            android:id="@+id/action_gameScreen_to_gameScore"
+            app:destination="@id/gameScore" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameScore"
+        android:name="com.example.quiz.screens.gameScore.GameScore"
+        android:label="GameScore" >
+        <action
+            android:id="@+id/action_gameScore_to_scoreBoardFragment"
+            app:destination="@id/scoreBoardFragment" />
+        <action
+            android:id="@+id/action_gameScore_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/scoreBoardFragment"
+        android:name="com.example.quiz.screens.scoreBoard.ScoreBoardFragment"
+        android:label="ScoreBoardFragment" >
+        <action
+            android:id="@+id/action_scoreBoardFragment_to_homeScreen"
+            app:destination="@id/homeScreen" />
+    </fragment>
 </navigation>

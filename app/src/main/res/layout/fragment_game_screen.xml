@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:fillViewport="true"
         android:layout_height="match_parent"
-        android:background="#1A237E">
+        android:background="@drawable/ig_bg">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,9 +21,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:text="Question"
+                android:background="@drawable/textview_background"
+                android:textSize="17sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
                 android:gravity="center"
-                android:textSize="20sp"
-                android:textColor="@color/black"
                 android:id="@+id/tv_question"/>
 
             <ImageView
