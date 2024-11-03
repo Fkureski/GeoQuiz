@@ -15,6 +15,7 @@
             android:id="@+id/action_homeScreen_to_scoreBoardFragment2"
             app:destination="@id/scoreBoardFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/gameScreen"
         android:name="com.example.quiz.screens.game.GameScreen"
@@ -22,7 +23,11 @@
         <action
             android:id="@+id/action_gameScreen_to_gameScore"
             app:destination="@id/gameScore" />
+        <action
+            android:id="@+id/action_gameScreen_to_homeScreen"
+            app:destination="@id/homeScreen" />
     </fragment>
+
     <fragment
         android:id="@+id/gameScore"
         android:name="com.example.quiz.screens.gameScore.GameScore"
@@ -34,6 +39,7 @@
             android:id="@+id/action_gameScore_to_homeScreen"
             app:destination="@id/homeScreen" />
     </fragment>
+
     <fragment
         android:id="@+id/scoreBoardFragment"
         android:name="com.example.quiz.screens.scoreBoard.ScoreBoardFragment"

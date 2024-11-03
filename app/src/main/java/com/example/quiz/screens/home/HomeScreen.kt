@@ -5,21 +5,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.quiz.R
 import com.example.quiz.databinding.FragmentHomeScreenBinding
 
 class HomeScreen : Fragment() {
-    
-    lateinit var binding: FragmentHomeScreenBinding
+
+    private lateinit var binding: FragmentHomeScreenBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_screen, container, false)
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.startBtn.setOnClickListener {
+            Toast.makeText(context, "Botão START clicado!", Toast.LENGTH_SHORT).show()
+
+            findNavController().navigate(R.id.action_homeScreen_to_gameScreen)
+        }
     }
 }
