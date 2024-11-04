@@ -1,6 +1,6 @@
 package com.example.quiz
 
-class Questions (
+class Questions(
     val id: Int,
     val question: String,
     val image: Int,
@@ -9,4 +9,4 @@ class Questions (
     val optionThree: String,
     val optionFour: String,
     val correctAnswer: Int
-    )
+)
