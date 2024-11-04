@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.quiz.R
+import com.example.quiz.databinding.FragmentScoreBoardScreenBinding
 
 class ScoreBoardFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var scoreAdapter: ScoreAdapter
 
     // Lista fictícia de pontuações para o exemplo
@@ -28,19 +28,20 @@ class ScoreBoardFragment : Fragment() {
         ScoreItem("Player 10", 850)
     )
 
+    private lateinit var binding: FragmentScoreBoardScreenBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Infla o layout do fragmento
-        val view = inflater.inflate(R.layout.fragment_score_board_screen, container, false)
+    ): View {
+        // Infla o layout do fragmento usando DataBinding
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_score_board_screen, container, false)
 
-        // Configura a RecyclerView
-        recyclerView = view.findViewById(R.id.rv_top_scores)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        // Configura o RecyclerView
+        binding.rvTopScores.layoutManager = LinearLayoutManager(requireContext())
         scoreAdapter = ScoreAdapter(topScores)
-        recyclerView.adapter = scoreAdapter
+        binding.rvTopScores.adapter = scoreAdapter
 
-        return view
+        return binding.root
     }
 }
