@@ -1,6 +1,7 @@
 package com.example.quiz.screens.game
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -23,13 +24,17 @@ class GameScreen : Fragment() {
     private var questionIndex = 0
     private var correctAnswersCount = 0
     private var selectedOption: TextView? = null
+    private var score = 0
+    private var timeLeftInSeconds = 11
+
+    private lateinit var timer: CountDownTimer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_game_screen, container, false)
-        mQuestionsList = Constants.getQuestions()
+        mQuestionsList = Constants.getQuestions().apply { shuffle() }
         return binding.root
     }
 
@@ -38,34 +43,28 @@ class GameScreen : Fragment() {
 
         setQuestion()
 
-        // Configurações de seleção de opção
         binding.tvOptionOne.setOnClickListener { selectOption(binding.tvOptionOne) }
         binding.tvOptionTwo.setOnClickListener { selectOption(binding.tvOptionTwo) }
         binding.tvOptionThree.setOnClickListener { selectOption(binding.tvOptionThree) }
         binding.tvOptionFour.setOnClickListener { selectOption(binding.tvOptionFour) }
 
-        // Configuração do botão Responder
         binding.btnResponder.setOnClickListener { checkAnswer() }
     }
 
     private fun setQuestion() {
         val question = mQuestionsList[questionIndex]
-
         binding.tvQuestion.text = question.question
         binding.imageView.setImageResource(question.image)
         binding.tvOptionOne.text = question.optionOne
         binding.tvOptionTwo.text = question.optionTwo
         binding.tvOptionThree.text = question.optionThree
         binding.tvOptionFour.text = question.optionFour
-
         binding.pb.progress = questionIndex + 1
         binding.tvProgress.text = "${questionIndex + 1}/${mQuestionsList.size}"
-
-        // Reset da seleção e visibilidade do botão
         selectedOption = null
         binding.btnResponder.visibility = View.GONE
-
         resetOptionBackgrounds()
+        startTimer()
     }
 
     private fun resetOptionBackgrounds() {
@@ -76,23 +75,32 @@ class GameScreen : Fragment() {
         binding.tvOptionFour.background = defaultBackground
     }
 
-    private fun selectOption(option: TextView) {
-        // Reseta o fundo das opções
-        resetOptionBackgrounds()
+    private fun startTimer() {
+        timeLeftInSeconds = 11
+        binding.tvTimer.text = timeLeftInSeconds.toString()
+        timer = object : CountDownTimer(11000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                timeLeftInSeconds--
+                binding.tvTimer.text = timeLeftInSeconds.toString()
+            }
+            override fun onFinish() {
+                binding.tvTimer.text = "0"
+                checkAnswer()
+            }
+        }.start()
+    }
 
-        // Define a borda preta na opção selecionada
+    private fun selectOption(option: TextView) {
+        resetOptionBackgrounds()
         option.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_option_border)
         selectedOption = option
-
-        // Exibe o botão "Responder"
         binding.btnResponder.visibility = View.VISIBLE
     }
 
     private fun checkAnswer() {
+        timer.cancel()
         val question = mQuestionsList[questionIndex]
-
         selectedOption?.let { option ->
-            // Verifica se a resposta está correta
             val selectedAnswerIndex = when (option) {
                 binding.tvOptionOne -> 1
                 binding.tvOptionTwo -> 2
@@ -100,16 +108,13 @@ class GameScreen : Fragment() {
                 binding.tvOptionFour -> 4
                 else -> -1
             }
-
-            // Ajusta o fundo da opção selecionada para verde (correta) ou vermelha (incorreta)
             if (selectedAnswerIndex == question.correctAnswer) {
                 option.background = ContextCompat.getDrawable(requireContext(), R.drawable.correct_answer_border)
                 correctAnswersCount++
+                score += timeLeftInSeconds.coerceAtMost(10)
             } else {
                 option.background = ContextCompat.getDrawable(requireContext(), R.drawable.wrong_answer_border)
             }
-
-            // Aguarda 3 segundos antes de ir para a próxima pergunta
             Handler(Looper.getMainLooper()).postDelayed({
                 goToNextQuestion()
             }, 1500)
@@ -121,8 +126,8 @@ class GameScreen : Fragment() {
             questionIndex++
             setQuestion()
         } else {
-            // Final do quiz: navega para a tela de pontuação
-            findNavController().navigate(R.id.action_gameScreen_to_gameScore)
+            val bundle = Bundle().apply { putInt("score", score) }
+            findNavController().navigate(R.id.action_gameScreen_to_gameScore, bundle)
         }
     }
 }

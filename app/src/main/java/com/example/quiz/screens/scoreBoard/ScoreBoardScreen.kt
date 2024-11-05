@@ -34,10 +34,8 @@ class ScoreBoardFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Infla o layout do fragmento usando DataBinding
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_score_board_screen, container, false)
 
-        // Configura o RecyclerView
         binding.rvTopScores.layoutManager = LinearLayoutManager(requireContext())
         scoreAdapter = ScoreAdapter(topScores)
         binding.rvTopScores.adapter = scoreAdapter

@@ -35,13 +35,27 @@
             android:shadowRadius="4" />
 
         <Button
+            android:id="@+id/viewScoreboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/playAgain"
+            android:layout_margin="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_background"
+            android:padding="11dp"
+            android:text="Ver Scoreboard"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <Button
             android:id="@+id/playAgain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_margin="30dp"
             android:background="@drawable/button_background"
-            android:text="Play Again"
+            android:text="Jogar novamente"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:padding="12dp" />

@@ -28,8 +28,11 @@ class HomeScreen : Fragment() {
 
         binding.startBtn.setOnClickListener {
             Toast.makeText(context, "Botão START clicado!", Toast.LENGTH_SHORT).show()
-
             findNavController().navigate(R.id.action_homeScreen_to_gameScreen)
+        }
+
+        binding.scoreBoardBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreen_to_scoreBoardFragment)
         }
     }
 }

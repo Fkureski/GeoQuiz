@@ -14,4 +14,7 @@
     <color name="gray">#7A8089</color>
     <color name="green">#4CAF50</color>
     <color name="red">#F44336</color>
+    <color name="button_background">#3949AB</color>
+    <color name="card_background">#3949AB</color>
+    <color name="highlight_text">#FFEB3B</color>
 </resources>

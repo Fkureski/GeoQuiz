@@ -12,6 +12,9 @@
             android:id="@+id/action_homeScreen_to_gameScreen"
             app:destination="@id/gameScreen" />
         <action
+            android:id="@+id/action_homeScreen_to_scoreBoardFragment"
+            app:destination="@id/scoreBoardFragment" />
+        <action
             android:id="@+id/action_homeScreen_to_scoreBoardFragment2"
             app:destination="@id/scoreBoardFragment" />
     </fragment>
@@ -26,6 +29,10 @@
         <action
             android:id="@+id/action_gameScreen_to_homeScreen"
             app:destination="@id/homeScreen" />
+
+        <argument
+            android:name="score"
+            app:argType="integer" />
     </fragment>
 
     <fragment
@@ -33,11 +40,15 @@
         android:name="com.example.quiz.screens.gameScore.GameScore"
         android:label="GameScore" >
         <action
-            android:id="@+id/action_gameScore_to_scoreBoardFragment"
+            android:id="@+id/action_gameScore_to_scoreBoard"
             app:destination="@id/scoreBoardFragment" />
         <action
             android:id="@+id/action_gameScore_to_homeScreen"
             app:destination="@id/homeScreen" />
+
+        <argument
+            android:name="score"
+            app:argType="integer" />
     </fragment>
 
     <fragment
