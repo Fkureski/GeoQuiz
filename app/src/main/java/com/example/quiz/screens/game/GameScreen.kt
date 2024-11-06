@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,9 +77,9 @@ class GameScreen : Fragment() {
 
         timer = object : CountDownTimer(totalTimeInMillis, 100) {
             override fun onTick(millisUntilFinished: Long) {
-                val secondsLeft = (millisUntilFinished / 1000).toInt()
+                timeLeftInSeconds = (millisUntilFinished / 1000).toInt()
                 val progress = (millisUntilFinished * 100 / totalTimeInMillis).toInt()
-                binding.tvTimer.text = secondsLeft.toString()
+                binding.tvTimer.text = timeLeftInSeconds.toString()
                 binding.timerProgressBar.progress = progress
             }
 
@@ -105,6 +106,8 @@ class GameScreen : Fragment() {
             option.background = ContextCompat.getDrawable(requireContext(), R.drawable.correct_answer_border)
             correctAnswersCount++
             score += calculateScoreBasedOnTime()
+
+            Log.d("GameScreen", "Score atualizado: $score")
         } else {
             option.background = ContextCompat.getDrawable(requireContext(), R.drawable.wrong_answer_border)
         }
@@ -126,8 +129,9 @@ class GameScreen : Fragment() {
             in 1..2 -> 2
             in 0..1 -> 1
             else -> 0
-        }
+        }.also { Log.d("GameScreen", "Score calculado com base no tempo: $it") }
     }
+
 
     private fun goToNextQuestion() {
         if (questionIndex < mQuestionsList.size - 1) {

@@ -23,5 +23,9 @@ interface PlayerScoreDao {
             insertScore(score)
         }
     }
+
+    @Query("SELECT * FROM player_scores ORDER BY id DESC LIMIT 1")
+    suspend fun getLastScore(): PlayerScore?
 }
+
 
