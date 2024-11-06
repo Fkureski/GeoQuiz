@@ -14,9 +14,6 @@
         <action
             android:id="@+id/action_homeScreen_to_scoreBoardFragment"
             app:destination="@id/scoreBoardFragment" />
-        <action
-            android:id="@+id/action_homeScreen_to_scoreBoardFragment2"
-            app:destination="@id/scoreBoardFragment" />
     </fragment>
 
     <fragment
@@ -26,13 +23,16 @@
         <action
             android:id="@+id/action_gameScreen_to_gameScore"
             app:destination="@id/gameScore" />
-        <action
-            android:id="@+id/action_gameScreen_to_homeScreen"
-            app:destination="@id/homeScreen" />
+
+        <!-- Argumento para passar o nome do jogador -->
+        <argument
+            android:name="playerName"
+            app:argType="string" />
 
         <argument
             android:name="score"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
     <fragment
@@ -45,6 +45,10 @@
         <action
             android:id="@+id/action_gameScore_to_homeScreen"
             app:destination="@id/homeScreen" />
+
+        <argument
+            android:name="playerName"
+            app:argType="string" />
 
         <argument
             android:name="score"

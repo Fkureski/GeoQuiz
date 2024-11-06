@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.quiz.Constants
 import com.example.quiz.Questions
 import com.example.quiz.R
@@ -28,6 +29,7 @@ class GameScreen : Fragment() {
     private var timeLeftInSeconds = 11
 
     private lateinit var timer: CountDownTimer
+    private val args: GameScreenArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -126,8 +128,12 @@ class GameScreen : Fragment() {
             questionIndex++
             setQuestion()
         } else {
-            val bundle = Bundle().apply { putInt("score", score) }
-            findNavController().navigate(R.id.action_gameScreen_to_gameScore, bundle)
+            val action = GameScreenDirections.actionGameScreenToGameScore(
+                score = score,
+                playerName = args.playerName
+            )
+            findNavController().navigate(action)
         }
     }
+
 }

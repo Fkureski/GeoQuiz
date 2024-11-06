@@ -27,8 +27,13 @@ class HomeScreen : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.startBtn.setOnClickListener {
-            Toast.makeText(context, "Botão START clicado!", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_homeScreen_to_gameScreen)
+            val playerName = binding.etName.text.toString().trim()
+            if (playerName.isEmpty()) {
+                Toast.makeText(requireContext(), "Por favor, insira um nome para começar!", Toast.LENGTH_SHORT).show()
+            } else {
+                val action = HomeScreenDirections.actionHomeScreenToGameScreen(playerName)
+                findNavController().navigate(action)
+            }
         }
 
         binding.scoreBoardBtn.setOnClickListener {
