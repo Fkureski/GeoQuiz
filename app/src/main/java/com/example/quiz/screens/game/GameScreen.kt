@@ -24,12 +24,10 @@ class GameScreen : Fragment() {
     private lateinit var binding: FragmentGameScreenBinding
     private var questionIndex = 0
     private var correctAnswersCount = 0
-    private var selectedOption: TextView? = null
     private var score = 0
     private var timeLeftInSeconds = 11
-
-    private lateinit var timer: CountDownTimer
     private val args: GameScreenArgs by navArgs()
+    private lateinit var timer: CountDownTimer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,15 +40,11 @@ class GameScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setQuestion()
-
-        binding.tvOptionOne.setOnClickListener { selectOption(binding.tvOptionOne) }
-        binding.tvOptionTwo.setOnClickListener { selectOption(binding.tvOptionTwo) }
-        binding.tvOptionThree.setOnClickListener { selectOption(binding.tvOptionThree) }
-        binding.tvOptionFour.setOnClickListener { selectOption(binding.tvOptionFour) }
-
-        binding.btnResponder.setOnClickListener { checkAnswer() }
+        binding.tvOptionOne.setOnClickListener { checkAnswer(binding.tvOptionOne) }
+        binding.tvOptionTwo.setOnClickListener { checkAnswer(binding.tvOptionTwo) }
+        binding.tvOptionThree.setOnClickListener { checkAnswer(binding.tvOptionThree) }
+        binding.tvOptionFour.setOnClickListener { checkAnswer(binding.tvOptionFour) }
     }
 
     private fun setQuestion() {
@@ -62,9 +56,7 @@ class GameScreen : Fragment() {
         binding.tvOptionThree.text = question.optionThree
         binding.tvOptionFour.text = question.optionFour
         binding.pb.progress = questionIndex + 1
-        binding.tvProgress.text = "${questionIndex + 1}/${mQuestionsList.size}"
-        selectedOption = null
-        binding.btnResponder.visibility = View.GONE
+        binding.tvProgress.text = getString(R.string.progress_text, questionIndex + 1, mQuestionsList.size)
         resetOptionBackgrounds()
         startTimer()
     }
@@ -78,48 +70,62 @@ class GameScreen : Fragment() {
     }
 
     private fun startTimer() {
-        timeLeftInSeconds = 11
-        binding.tvTimer.text = timeLeftInSeconds.toString()
-        timer = object : CountDownTimer(11000, 1000) {
+        val totalTimeInMillis = 11000L
+        binding.tvTimer.text = "10"
+        binding.timerProgressBar.progress = 100
+
+        timer = object : CountDownTimer(totalTimeInMillis, 100) {
             override fun onTick(millisUntilFinished: Long) {
-                timeLeftInSeconds--
-                binding.tvTimer.text = timeLeftInSeconds.toString()
+                val secondsLeft = (millisUntilFinished / 1000).toInt()
+                val progress = (millisUntilFinished * 100 / totalTimeInMillis).toInt()
+                binding.tvTimer.text = secondsLeft.toString()
+                binding.timerProgressBar.progress = progress
             }
+
             override fun onFinish() {
                 binding.tvTimer.text = "0"
-                checkAnswer()
+                binding.timerProgressBar.progress = 0
+                goToNextQuestion()
             }
         }.start()
     }
 
-    private fun selectOption(option: TextView) {
-        resetOptionBackgrounds()
-        option.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_option_border)
-        selectedOption = option
-        binding.btnResponder.visibility = View.VISIBLE
-    }
 
-    private fun checkAnswer() {
+    private fun checkAnswer(option: TextView) {
         timer.cancel()
         val question = mQuestionsList[questionIndex]
-        selectedOption?.let { option ->
-            val selectedAnswerIndex = when (option) {
-                binding.tvOptionOne -> 1
-                binding.tvOptionTwo -> 2
-                binding.tvOptionThree -> 3
-                binding.tvOptionFour -> 4
-                else -> -1
-            }
-            if (selectedAnswerIndex == question.correctAnswer) {
-                option.background = ContextCompat.getDrawable(requireContext(), R.drawable.correct_answer_border)
-                correctAnswersCount++
-                score += timeLeftInSeconds.coerceAtMost(10)
-            } else {
-                option.background = ContextCompat.getDrawable(requireContext(), R.drawable.wrong_answer_border)
-            }
-            Handler(Looper.getMainLooper()).postDelayed({
-                goToNextQuestion()
-            }, 1500)
+        val selectedAnswerIndex = when (option) {
+            binding.tvOptionOne -> 1
+            binding.tvOptionTwo -> 2
+            binding.tvOptionThree -> 3
+            binding.tvOptionFour -> 4
+            else -> -1
+        }
+        if (selectedAnswerIndex == question.correctAnswer) {
+            option.background = ContextCompat.getDrawable(requireContext(), R.drawable.correct_answer_border)
+            correctAnswersCount++
+            score += calculateScoreBasedOnTime()
+        } else {
+            option.background = ContextCompat.getDrawable(requireContext(), R.drawable.wrong_answer_border)
+        }
+        Handler(Looper.getMainLooper()).postDelayed({
+            goToNextQuestion()
+        }, 1500)
+    }
+
+    private fun calculateScoreBasedOnTime(): Int {
+        return when (timeLeftInSeconds) {
+            in 9..10 -> 10
+            in 8..9 -> 9
+            in 7..8 -> 8
+            in 6..7 -> 7
+            in 5..6 -> 6
+            in 4..5 -> 5
+            in 3..4 -> 4
+            in 2..3 -> 3
+            in 1..2 -> 2
+            in 0..1 -> 1
+            else -> 0
         }
     }
 

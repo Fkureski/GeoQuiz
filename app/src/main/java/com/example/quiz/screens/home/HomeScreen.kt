@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.quiz.R
 import com.example.quiz.databinding.FragmentHomeScreenBinding
 
+
 class HomeScreen : Fragment() {
 
     private lateinit var binding: FragmentHomeScreenBinding
@@ -34,10 +35,6 @@ class HomeScreen : Fragment() {
                 val action = HomeScreenDirections.actionHomeScreenToGameScreen(playerName)
                 findNavController().navigate(action)
             }
-        }
-
-        binding.scoreBoardBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_homeScreen_to_scoreBoardFragment)
         }
     }
 }

@@ -88,19 +88,6 @@
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/scoreBoardBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="20dp"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="@color/blue"
-                    android:padding="10dp"
-                    android:text="Ver Scoreboard"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
-
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

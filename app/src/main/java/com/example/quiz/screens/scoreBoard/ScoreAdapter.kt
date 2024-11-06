@@ -10,9 +10,9 @@ import com.example.quiz.data.PlayerScore
 
 class ScoreAdapter(private val scores: List<PlayerScore>) : RecyclerView.Adapter<ScoreAdapter.ScoreViewHolder>() {
 
-    inner class ScoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val playerName: TextView = itemView.findViewById(R.id.tvPlayerName)
-        val playerScore: TextView = itemView.findViewById(R.id.tvPlayerScore)
+    class ScoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val playerName: TextView = itemView.findViewById(R.id.playerName)
+        val playerScore: TextView = itemView.findViewById(R.id.playerScore)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScoreViewHolder {
@@ -21,10 +21,11 @@ class ScoreAdapter(private val scores: List<PlayerScore>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: ScoreViewHolder, position: Int) {
-        val currentScore = scores[position]
-        holder.playerName.text = currentScore.playerName
-        holder.playerScore.text = currentScore.score.toString()
+        val score = scores[position]
+        holder.playerName.text = score.playerName
+        holder.playerScore.text = score.score.toString()
     }
 
     override fun getItemCount(): Int = scores.size
 }
+

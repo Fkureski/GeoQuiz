@@ -36,7 +36,7 @@ object Constants {
         // Pergunta 4 - Capital
         val q4 = Questions(
             4, "Qual é a capital do Japão?",
-            0,
+            R.drawable.tokyo,
             "Pequim", "Seul",
             "Tóquio", "Osaka",
             3
@@ -45,7 +45,7 @@ object Constants {
         // Pergunta 5 - Capital
         val q5 = Questions(
             5, "Qual é a capital da Austrália?",
-            0,  // Sem imagem
+            R.drawable.sydney,  // Sem imagem
             "Sydney", "Melbourne",
             "Canberra", "Brisbane",
             3
@@ -53,8 +53,8 @@ object Constants {
 
         // Pergunta 6 - Continente
         val q6 = Questions(
-            6, "Em qual continente está localizada a Somália?",
-            0,
+            6, "Em qual continente está localizado o Egito?",
+            R.drawable.egito,
             "Ásia", "África",
             "América do Norte", "Europa",
             2
@@ -63,7 +63,7 @@ object Constants {
         // Pergunta 7 - Capital
         val q7 = Questions(
             7, "Qual é a capital do Canadá?",
-            0,
+            R.drawable.toronto,
             "Toronto", "Vancouver",
             "Montreal", "Ottawa",
             4
@@ -72,7 +72,7 @@ object Constants {
         // Pergunta 8 - Continente
         val q8 = Questions(
             8, "Em qual continente está localizada a Argentina?",
-            0,
+            R.drawable.obelisco,
             "América do Norte", "América do Sul",
             "África", "Europa",
             2
@@ -81,7 +81,7 @@ object Constants {
         // Pergunta 9 - Capital
         val q9 = Questions(
             9, "Qual é a capital da França?",
-            0,
+            R.drawable.paris,
             "Roma", "Paris",
             "Londres", "Berlim",
             2
@@ -90,7 +90,7 @@ object Constants {
         // Pergunta 10 - Capital
         val q10 = Questions(
             10, "Qual é a capital da Alemanha?",
-            0,
+            R.drawable.berlim,
             "Viena", "Berlim",
             "Munique", "Hamburgo",
             2

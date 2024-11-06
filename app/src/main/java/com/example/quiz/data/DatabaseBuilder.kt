@@ -14,7 +14,9 @@ object DatabaseBuilder {
                 context.applicationContext,
                 AppDatabase::class.java,
                 "quiz_database"
-            ).build()
+            )
+                .fallbackToDestructiveMigration()
+                .build()
             INSTANCE = instance
             instance
         }

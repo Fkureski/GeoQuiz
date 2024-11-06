@@ -10,18 +10,58 @@
         tools:context=".screens.scoreBoard.ScoreBoardFragment">
 
         <TextView
+            android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Top 10 Scores"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_centerHorizontal="true"/>
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewScores"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@id/titleTextView"
+            android:layout_above="@id/buttonContainer"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:clipToPadding="false"
+            android:paddingBottom="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:id="@+id/buttonContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp">
+
+            <Button
+                android:id="@+id/btnViewScore"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Ver sua Pontuação"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/purple_500"/>
+
+            <Button
+                android:id="@+id/btnPlayAgain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Jogar Novamente"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/purple_500"/>
+        </LinearLayout>
     </RelativeLayout>
 </layout>
